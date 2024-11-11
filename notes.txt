@@ -1,0 +1,8 @@
+  <!-- i need to build a web app that renders the products -->
+    <!-- user must be able to change the order using the drag and drop way -->
+    <!-- No third parties lib need to be installed, so i must figure out a way to do it with only js  -->
+    <!-- i am goint to use the Vue framework to make the web app reactive, althought there is a build in features in vue to drag and drop but i will try to do it the traditional way hopefully -->
+
+    <!-- I usually start by creating very simple wireframe or design, this helps to break down the app into smaller components -->
+i will use vue components later
+i can also do it using router so when user click on the product it will show on seperate page but since it it mentioned popup i think i will use modals in my case
