@@ -23,8 +23,7 @@
             margin-bottom: 0 !important;
         }
 
-        /* to cut and view only one line */
-
+        /* to view only one line */
         .text-fade {
             display: -webkit-box;
             overflow: hidden;
@@ -88,18 +87,15 @@
             <div class="brand">
                 <h4>{{title}}</h4>
             </div>
-            <div class="menu">
-                <span class="fs-3">⊞</span>
-            </div>
-            <!-- later to place the menu popup list -->
         </nav>
     </header>
 
     <main class="my-3 d-flex flex-column">
+        <!-- show if only the api returned something valid -->
+        <section v-if="status" class="container my-5">
 
-        <section class="container my-5">
             <div class="row g-3">
-
+                <!-- skeleton loading demo nodes -->
                 <div v-if="spinner" v-for="node in ['','','','','','']" :key="node" class="col-12 col-lg-6">
                     <section class="d-flex justify-content-between align-items-center gap-2 p-2 rounded border">
                         <div class="col-2 ">
@@ -124,31 +120,31 @@
                         </div>
                     </section>
                 </div>
-                <div v-else v-for="node in products" :key="node" class="col-12 col-lg-6" draggable="true">
+                <div v-else v-for="node in products" :key="node" class="col-12 col-lg-6">
+
+                    <!-- product container -->
                     <section data-bs-toggle="modal" :data-bs-target="'#modal-'+node.id" role="button" title="Open"
                         class="d-flex justify-content-between align-items-center gap-2 p-2 rounded border">
                         <div class="col-2 ">
-                            <div class="ratio ratio-1x1">
-                                <!-- make sure to have a skeleton loading in case of internet fallbacks or loading -->
-                                <!-- incase the img url is not valid show aplaceholder image -->
-                                <!-- the reason it wont worked because v-if 3am tshel the whole element we need just to hide not to totally remove the element -->
-                                <!-- i dont want to broke all the images if one got broken i think it better to replace according to broken instance -->
-                                <!-- there is also a case for offline i already did it in other projects of mine i prefere save the time and add it later -->
+                            <figure class="ratio ratio-1x1">
+                                <!-- make sure to replace the broken img with a placeholder -->
+                                <!-- also i can do it incase if the img didnt load  due to weak connection -->
                                 <img @error="node.isBroken = true" width="1080" height="1080" :src="renderImg(node)"
                                     :alt="node.title" class="object-fit-cover rounded skeleton">
-                            </div>
+                            </figure>
                         </div>
                         <div class="d-flex flex-column gap-1">
                             <h6 class="text-fade fs-5">{{node.title}}</h6>
                             <p class="text-fade-2">{{node.description}}</p>
                         </div>
-                        <div style="cursor: move;" title="Move">
+                        <!-- here is a drag icon but usually i am more familiar with clicking to reorder, it will take me more time to check docs and implement the complete feature -->
+                        <!-- <div style="cursor: move;" title="Move">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-arrows-move" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
                                     d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10M.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8" />
                             </svg>
-                        </div>
+                        </div> -->
 
                         <!-- Modal -->
                         <div class="modal fade" :id="'modal-'+node.id">
@@ -205,6 +201,7 @@
                 </div>
             </div>
         </section>
+        <p v-else class="fs-small text-secondary text-center my-5">Nothing to show</p>
     </main>
     <footer>
     </footer>
