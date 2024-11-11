@@ -59,15 +59,15 @@ const app = Vue.createApp({
         },
 
         dragMe(e, index) {
-            // console.log("i am being dragged: ", index);
+            console.log("i am being dragged: ", index);
             e.dataTransfer.setData('itemID', index)
         },
 
         dropMe(e, index) {
-            // console.log(e.dataTransfer.getData('itemID') + " is being dropped on :" + index);
+            console.log(e.dataTransfer.getData('itemID') + " is being dropped on :" + index);
             // this.from = parseInt(e.dataTransfer.getData('itemID'))
             // this.to = parseInt(index)
-            this.swipe(e.dataTransfer.getData('itemID'), index)
+            // this.swipe(e.dataTransfer.getData('itemID'), index)
         },
 
         swipe(from, to) {
@@ -109,8 +109,15 @@ const app = Vue.createApp({
     },
     mounted() {
         this.readProducts()
-    }
+    },
 })
 
+app.component('brand', {
+    template: ` <div class="brand">
+                <h4>{{title}}</h4>
+            </div>`,
+    props: ['title']
+
+})
 
 app.mount("#app")

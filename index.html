@@ -84,10 +84,7 @@
 
     <header>
         <nav class="d-flex justify-content-between align-items-center gap-2 p-2 border">
-            <div class="brand">
-                <h4>{{title}}</h4>
-            </div>
-            {{from}} -> {{to}}
+           <brand :title="title"></brand>
         </nav>
     </header>
 
@@ -135,7 +132,7 @@
                             </figure>
                         </div>
                         <div class="d-flex flex-column gap-1">
-                            <h6 class="text-fade fs-5">{{node.index}}</h6>
+                            <h6 class="text-fade fs-5">{{node.title}}</h6>
                             <p class="text-fade-2">{{node.description}}</p>
                         </div>
                         <!-- here is a drag icon but usually i am more familiar with clicking to reorder, it will take me more time to check docs and implement the complete feature -->
@@ -199,6 +196,7 @@
                             </div>
                         </div>
                     </section>
+
                 </div>
             </div>
         </section>
