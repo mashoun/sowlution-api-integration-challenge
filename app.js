@@ -12,6 +12,10 @@ class Product {
         }
         // also 7atta law el url of image exists but also it might be broken!
         this.isBroken = false
+        this.index = ""
+    }
+    setIndex(i) {
+        this.index = i
     }
 }
 const app = Vue.createApp({
@@ -24,6 +28,8 @@ const app = Vue.createApp({
             // this rep the status of the api if it is working
             status: true,
             products: [],
+            // from: null,
+            // to: null
         }
     },
     methods: {
@@ -35,6 +41,12 @@ const app = Vue.createApp({
                 this.spinner = false
                 this.products = res
                 this.products.map(node => new Product(node))
+                for (let i in this.products) {
+                    this.products[i].index = `${i}`
+                }
+
+                // console.log(this.products);
+
 
             }).catch(err => {
                 this.spinner = false
@@ -45,6 +57,53 @@ const app = Vue.createApp({
         renderImg(obj = {}) {
             return obj.isBroken ? "https://placehold.co/400" : obj.image
         },
+
+        dragMe(e, index) {
+            // console.log("i am being dragged: ", index);
+            e.dataTransfer.setData('itemID', index)
+        },
+
+        dropMe(e, index) {
+            // console.log(e.dataTransfer.getData('itemID') + " is being dropped on :" + index);
+            // this.from = parseInt(e.dataTransfer.getData('itemID'))
+            // this.to = parseInt(index)
+            this.swipe(e.dataTransfer.getData('itemID'), index)
+        },
+
+        swipe(from, to) {
+            // console.log(this.products[this.to].index);
+            // console.log(typeof(from), typeof(to));
+            // this.products[this.to].index = this.from
+            // this.products[this.from].index = this.to
+
+            // this.from = null
+            // this.to = null
+
+            // this.products[from].index = to
+            // this.products[to].index = from
+
+            // passing by reference?
+
+            // console.log(this.products[from].index);
+            // console.log(this.products[to].index);
+
+
+            let arr = [...this.products].map(node => new Product(node))
+            for (let i in arr) {
+                arr[i].index = `${i}`
+            }
+
+            arr.at(from).setIndex(to)
+            arr.at(to).setIndex(from)
+
+            console.log(arr);
+
+            this.products = arr.sort((from, to) => to - from)
+
+
+
+
+        }
 
 
     },
